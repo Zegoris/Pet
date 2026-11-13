@@ -40,35 +40,57 @@ namespace tama {
         return true;
     }
 
+
     bool Inventory::use(std::size_t n, Pet &p, const NeedsSystem &needs) {
-        if (n >= items_.size() || items_[n].quantity <= 0 || p.sleeping())return false;
+        if (n >= items_.size() || items_[n].quantity <= 0 || p.sleeping()) {
+            return false;
+        }
+
         Item &i = items_[n];
+        bool used = false;
+
         switch (i.type) {
-            case ItemType::Food: needs.feed(p, i.power);
+            case ItemType::Food:
+                used = needs.feed(p, i.power);
                 break;
-            case ItemType::Toy: if (!needs.canPlay(p))return false;
-                needs.play(p, i.power);
+
+            case ItemType::Toy:
+                used = needs.play(p, i.power);
                 break;
-            case ItemType::Medicine: needs.heal(p, i.power);
+
+            case ItemType::Medicine:
+                used = needs.heal(p, i.power);
                 break;
-            case ItemType::Cleaning: needs.clean(p);
+
+            case ItemType::Cleaning:
+                used = needs.clean(p);
                 break;
-            case ItemType::Special: p.apply(0, i.power, 0, 0, 0);
-                p.addExperience(10);
-                p.addAction();
+
+            case ItemType::Special:
+                if (p.stats().happiness < 100) {
+                    p.apply(0, i.power, 0, 0, 0);
+                    p.addExperience(10);
+                    p.addAction();
+                    used = true;
+                }
                 break;
         }
+
+        if (!used) return false;
+
         --i.quantity;
         return true;
     }
 
+
     void Inventory::print(std::ostream &o) const {
         o << "\nИНВЕНТАРЬ\n";
         bool any = false;
-        for (const auto &i: items_)if (i.quantity > 0) {
-            any = true;
-            o << i.name << " x" << i.quantity << " (" << itemTypeName(i.type) << ")\n";
-        }
+        for (const auto &i: items_)
+            if (i.quantity > 0) {
+                any = true;
+                o << i.name << " x" << i.quantity << " (" << itemTypeName(i.type) << ")\n";
+            }
         if (!any)o << "Пусто.\n";
     }
 

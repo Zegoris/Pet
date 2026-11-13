@@ -2,24 +2,25 @@ module;
 
 export module tamagotchi.needs;
 import tamagotchi.pet;
+
 export namespace tama {
     class NeedsSystem {
     public:
-        void feed(Pet &, int strength = 25) const;
+        bool feed(Pet &, int strength = 25) const;
 
-        void play(Pet &, int fun = 18) const;
+        bool play(Pet &, int fun = 18) const;
 
-        void clean(Pet &) const;
+        bool clean(Pet &) const;
 
-        void heal(Pet &, int amount = 30) const;
+        bool heal(Pet &, int amount = 30) const;
 
-        void sleep(Pet &) const;
+        bool sleep(Pet &) const;
 
-        void wake(Pet &) const;
+        bool wake(Pet &) const;
 
-        void train(Pet &) const;
+        bool train(Pet &) const;
 
-        void pet(Pet &) const;
+        bool pet(Pet &) const;
 
         void tick(Pet &) const;
 

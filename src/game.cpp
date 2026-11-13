@@ -63,49 +63,74 @@ namespace tama {
         achievements_.check(pet_, world_);
     }
 
+
     void Game::careMenu() {
         while (true) {
             header();
             std::cout <<
                     "\n1. Покормить\n2. Поиграть\n3. Помыть\n4. Лечить\n5. Погладить\n6. Тренировка\n7. Спать\n8. Разбудить\n9. Предмет из инвентаря\n0. Назад\n";
+
             int c = readChoice(0, 9);
-            if (!c)return;
+            if (!c) return;
+
+            if (c == 9) {
+                inventoryMenu();
+                pause();
+                continue;
+            }
+
+            bool acted = false;
+
             switch (c) {
                 case 1:
-                    needs_.feed(pet_);
+                    acted = needs_.feed(pet_);
                     break;
+
                 case 2:
-                    if (needs_.canPlay(pet_))needs_.play(pet_);
-                    else std::cout << "Питомец устал.\n";
+                    acted = needs_.play(pet_);
+                    if (!acted && !needs_.canPlay(pet_)) {
+                        std::cout << "Питомец слишком устал или плохо себя чувствует.\n";
+                    }
                     break;
+
                 case 3:
-                    needs_.clean(pet_);
+                    acted = needs_.clean(pet_);
                     break;
+
                 case 4:
-                    needs_.heal(pet_);
+                    acted = needs_.heal(pet_);
                     break;
+
                 case 5:
-                    needs_.pet(pet_);
+                    acted = needs_.pet(pet_);
                     break;
+
                 case 6:
-                    if (needs_.canPlay(pet_))needs_.train(pet_);
-                    else std::cout << "Недостаточно энергии.\n";
+                    acted = needs_.train(pet_);
+                    if (!acted && !needs_.canPlay(pet_)) {
+                        std::cout << "Недостаточно энергии для тренировки.\n";
+                    }
                     break;
+
                 case 7:
-                    needs_.sleep(pet_);
+                    acted = needs_.sleep(pet_);
                     break;
+
                 case 8:
-                    needs_.wake(pet_);
+                    acted = needs_.wake(pet_);
                     break;
-                case 9:
-                    inventoryMenu();
-                    pause();
-                    continue;
             }
-            advanceTime(c == 9 ? 20 : 30);
+
+            if (acted) {
+                advanceTime(30);
+            } else {
+                std::cout << "Сейчас это действие не принесёт пользы.\n";
+            }
+
             pause();
         }
     }
+
 
     void Game::shopMenu() {
         while (true) {
