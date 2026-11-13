@@ -1,7 +1,6 @@
 module;
 #include <iostream>
 #include <string>
-#include <string>
 module tamagotchi.game;
 namespace tama {
     Game::Game() = default;
@@ -72,26 +71,36 @@ namespace tama {
             int c = readChoice(0, 9);
             if (!c)return;
             switch (c) {
-                case 1: needs_.feed(pet_);
+                case 1:
+                    needs_.feed(pet_);
                     break;
-                case 2: if (needs_.canPlay(pet_))needs_.play(pet_);
+                case 2:
+                    if (needs_.canPlay(pet_))needs_.play(pet_);
                     else std::cout << "Питомец устал.\n";
                     break;
-                case 3: needs_.clean(pet_);
+                case 3:
+                    needs_.clean(pet_);
                     break;
-                case 4: needs_.heal(pet_);
+                case 4:
+                    needs_.heal(pet_);
                     break;
-                case 5: needs_.pet(pet_);
+                case 5:
+                    needs_.pet(pet_);
                     break;
-                case 6: if (needs_.canPlay(pet_))needs_.train(pet_);
+                case 6:
+                    if (needs_.canPlay(pet_))needs_.train(pet_);
                     else std::cout << "Недостаточно энергии.\n";
                     break;
-                case 7: needs_.sleep(pet_);
+                case 7:
+                    needs_.sleep(pet_);
                     break;
-                case 8: needs_.wake(pet_);
+                case 8:
+                    needs_.wake(pet_);
                     break;
-                case 9: inventoryMenu();
-                    break;
+                case 9:
+                    inventoryMenu();
+                    pause();
+                    continue;
             }
             advanceTime(c == 9 ? 20 : 30);
             pause();

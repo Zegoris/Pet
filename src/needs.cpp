@@ -3,8 +3,9 @@ module;
 module tamagotchi.needs;
 namespace tama {
     void NeedsSystem::feed(Pet &p, int strength) const {
-        if (p.sleeping())return;
-        p.apply(-strength, 3, -2, -1, 0);
+        if (p.sleeping()) return;
+
+        p.apply(strength, 3, -2, -1, 0);
         p.addFeed();
         p.addExperience(8);
         p.addAction();
@@ -63,12 +64,19 @@ namespace tama {
 
     void NeedsSystem::tick(Pet &p) const {
         if (p.sleeping()) {
-            p.apply(0, 1, 8, 0, 0);
+            p.apply(-1, 1, 8, 0, 0);
             return;
         }
-        p.apply(3, -2, -2, -2, 0);
-        if (p.stats().hunger < 15 || p.stats().cleanliness < 10)p.apply(0, -2, 0, 0, -3);
-        if (p.stats().health < 35)p.apply(0, -1, 0, 0, -1);
+
+        p.apply(-3, -2, -2, -2, 0);
+
+        if (p.stats().hunger < 15 || p.stats().cleanliness < 10) {
+            p.apply(0, -2, 0, 0, -3);
+        }
+
+        if (p.stats().health < 35) {
+            p.apply(0, -1, 0, 0, -1);
+        }
     }
 
     bool NeedsSystem::canPlay(const Pet &p) const {

@@ -3,7 +3,6 @@ module;
 #include <vector>
 #include <iosfwd>
 #include <cstddef>
-#include <vector>
 export module tamagotchi.inventory;
 import tamagotchi.types;
 import tamagotchi.pet;
