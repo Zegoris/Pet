@@ -24,7 +24,9 @@ export namespace tama {
         AchievementManager achievements_;
         bool running_ = true;
         int eventCounter_ = 0;
-        std::string saveFile_ = "saves/tamagotchi.sav";
+        std::string chooseSaveSlot() const;
+        bool saveToSlot() const;
+        void deleteSaveSlot() const;
 
         int readChoice(int, int) const;
 

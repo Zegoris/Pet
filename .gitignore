@@ -1,4 +1,3 @@
-/saves/tamagotchi.sav
 .idea/
 build/
 *build*/
@@ -17,3 +16,4 @@ bin/
 .junie/
 .worktrees/
 .superpowers/
+/saves/
