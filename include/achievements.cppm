@@ -15,10 +15,13 @@ export namespace tama {
         AchievementManager();
 
         void check(const Pet &, GameWorld &);
+
         void print(std::ostream &) const;
 
         std::vector<std::string> unlockedIds() const;
+
         void restoreUnlocked(const std::vector<std::string> &ids);
+
         void restoreLegacy(const Pet &);
 
     private:

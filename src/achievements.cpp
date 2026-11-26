@@ -47,22 +47,22 @@ namespace tama {
     }
 
     void AchievementManager::check(const Pet &pet, GameWorld &world) {
-        for (const auto &id : earnedIds(pet)) {
+        for (const auto &id: earnedIds(pet)) {
             unlock(id, world);
         }
     }
 
     void AchievementManager::print(std::ostream &out) const {
-        for (const auto &achievement : data_) {
+        for (const auto &achievement: data_) {
             out << (achievement.unlocked ? "[✓] " : "[ ] ")
-                << achievement.title << " — " << achievement.description << '\n';
+                    << achievement.title << " — " << achievement.description << '\n';
         }
     }
 
     std::vector<std::string> AchievementManager::unlockedIds() const {
         std::vector<std::string> ids;
 
-        for (const auto &achievement : data_) {
+        for (const auto &achievement: data_) {
             if (achievement.unlocked) {
                 ids.push_back(achievement.id);
             }
@@ -72,9 +72,9 @@ namespace tama {
     }
 
     void AchievementManager::restoreUnlocked(const std::vector<std::string> &ids) {
-        for (auto &achievement : data_) {
+        for (auto &achievement: data_) {
             achievement.unlocked =
-                std::find(ids.begin(), ids.end(), achievement.id) != ids.end();
+                    std::find(ids.begin(), ids.end(), achievement.id) != ids.end();
         }
     }
 

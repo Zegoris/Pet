@@ -37,23 +37,23 @@ namespace tama {
         const Stats &stats = pet.stats();
         out << "TAMA_SAVE_2\n" << pet.name() << '\n' << pet.species() << '\n';
         out << stats.hunger << ' ' << stats.happiness << ' ' << stats.energy << ' '
-            << stats.cleanliness << ' ' << stats.health << ' '
-            << stats.experience << ' ' << stats.level << '\n';
+                << stats.cleanliness << ' ' << stats.health << ' '
+                << stats.experience << ' ' << stats.level << '\n';
         out << pet.sleeping() << ' ' << pet.ageDays() << ' ' << pet.actions() << ' '
-            << pet.feedCount() << ' ' << pet.playCount() << '\n';
+                << pet.feedCount() << ' ' << pet.playCount() << '\n';
         out << world.day() << ' ' << world.hour() << ' ' << world.minute() << ' '
-            << world.coins() << '\n';
+                << world.coins() << '\n';
 
         out << inventory.items().size() << '\n';
-        for (const auto &item : inventory.items()) {
+        for (const auto &item: inventory.items()) {
             out << item.id << '\n' << item.name << '\n' << item.description << '\n'
-                << static_cast<int>(item.type) << ' ' << item.price << ' '
-                << item.power << ' ' << item.quantity << '\n';
+                    << static_cast<int>(item.type) << ' ' << item.price << ' '
+                    << item.power << ' ' << item.quantity << '\n';
         }
 
         const auto unlocked = achievements.unlockedIds();
         out << unlocked.size() << '\n';
-        for (const auto &id : unlocked) {
+        for (const auto &id: unlocked) {
             out << id << '\n';
         }
 
@@ -89,7 +89,7 @@ namespace tama {
 
         Stats stats;
         if (!(in >> stats.hunger >> stats.happiness >> stats.energy
-                 >> stats.cleanliness >> stats.health >> stats.experience >> stats.level)
+              >> stats.cleanliness >> stats.health >> stats.experience >> stats.level)
             || stats.level < 1) {
             return false;
         }
